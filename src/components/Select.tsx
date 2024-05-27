@@ -27,7 +27,7 @@ export const Select = <V extends string | number>({
 			value={value}
 			onChange={(e) => {
 				onChange?.(
-					options.find((o) => o.value.toString() === e.target.value)?.value,
+					options.find((o) => o.value.toString() === e.target.value)!.value,
 				);
 			}}
 		>
