@@ -1,5 +1,2 @@
-import Button from './src/components/Button'
-
-export {
-  Button
-}
+export * from "./src/components/Button";
+export * from "./src/components/Select";
