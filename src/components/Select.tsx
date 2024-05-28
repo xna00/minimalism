@@ -6,17 +6,28 @@ export type SelectOption<V> = {
 };
 export type SelectProps<V> = {
 	options?: SelectOption<V>[];
-	value?: V;
 } & (
-	| {
-			cleareable: true;
-			onChange?: (v?: V) => void;
-	  }
-	| {
-			cleareable?: false;
-			onChange?: (v: V) => void;
-	  }
+	| ({
+			multiple?: false;
+			value?: V;
+	  } & (
+			| {
+					clearable: true;
+					onChange?: (v?: V) => void;
+			  }
+			| {
+					clearable?: false;
+					onChange?: (v: V) => void;
+			  }
+	  ))
+	// | {
+	// 		multiple: true;
+	// 		value: V[];
+	// 		clearable?: boolean;
+	// 		onChange?: (v: V[]) => void;
+	//   }
 );
+
 export const Select = <V extends string | number>({
 	options = [],
 	value,
@@ -24,7 +35,7 @@ export const Select = <V extends string | number>({
 }: SelectProps<V>) => {
 	return (
 		<select
-			value={value}
+			value={Array.isArray(value) ? value.map(String) : value}
 			onChange={(e) => {
 				onChange?.(
 					options.find((o) => o.value.toString() === e.target.value)!.value,
